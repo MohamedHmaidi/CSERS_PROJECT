@@ -1,5 +1,6 @@
 package Hend.BackendSpringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class PlanUrgence {
 
     @Column(name = "actions_requises")
     private String actionsRequises;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "planUrgence", cascade = CascadeType.ALL)
     private List<TypeIncident> typeIncidents;
 

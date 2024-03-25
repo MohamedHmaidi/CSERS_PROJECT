@@ -1,5 +1,6 @@
 package Hend.BackendSpringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class TypeIncident {
     @JoinColumn(name = "id_plan")
     private PlanUrgence planUrgence;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "typeIncident", cascade = CascadeType.ALL)
     private List<Incident> incidents;
 

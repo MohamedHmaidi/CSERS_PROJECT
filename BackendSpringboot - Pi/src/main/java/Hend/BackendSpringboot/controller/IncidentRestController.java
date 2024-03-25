@@ -38,7 +38,7 @@ public class IncidentRestController {
 
     // http://localhost:8089/csers/incident/remove-incident/{incident-id}
     @DeleteMapping("/remove-incident/{incident-id}")
-    public void removeChambre(@PathVariable("incident-id") Long incidentId) {
+    public void removeIncident(@PathVariable("incident-id") Long incidentId) {
         incidentService.removeIncident(incidentId);
     }
 
