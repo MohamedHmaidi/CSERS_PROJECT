@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Incident</title>
+   
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-red-50 p-8">
+    <br><br><br><br>
+    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold mb-6 text-red-600">Update Incident</h2>
+        <form>
+            <div class="mb-4 flex items-center">
+                <label for="localisation" class="block text-sm font-medium text-gray-700 mr-2">
+                    <i class="fas fa-map-marker-alt text-red-600"></i>
+                </label>
+                <div class="relative w-full">
+                    <select id="localisation" name="localisation" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                        <option value="ESPRIT">ESPRIT</option>
+                        <option value="ESB">ESB</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-400">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 flex items-center">
+                <label for="description" class="block text-sm font-medium text-gray-700 mr-2">
+                    <i class="fas fa-info-circle text-red-600"></i>
+                </label>
+                <textarea id="description" name="description" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50"></textarea>
+            </div>
+            <div class="mb-4">
+                <span class="block text-sm font-medium text-gray-700 mb-2">
+                    <i class="fas fa-info-circle text-red-600"></i> Status
+                </span>
+                <div class="flex items-center space-x-4">
+                    <label for="resolved" class="flex items-center">
+                        <input type="radio" id="resolved" name="status" value="RESOLVED" class="text-red-500 focus:ring-red-500">
+                        <span class="ml-2 text-sm">Resolved</span>
+                    </label>
+                    <label for="inProgress" class="flex items-center">
+                        <input type="radio" id="inProgress" name="status" value="IN_PROGRESS" class="text-red-500 focus:ring-red-500">
+                        <span class="ml-2 text-sm">In Progress</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-4 flex items-center">
+                <label for="typeIncident" class="block text-sm font-medium text-gray-700 mr-2">
+                    <i class="fas fa-exclamation-triangle text-red-600"></i>
+                </label>
+                <select id="typeIncident" name="typeIncident" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                    
+                    <option value="1">Type 1</option>
+                    <option value="2">Type 2</option>
+                    <option value="3">Type 3</option>
+                </select>
+            </div>
+            <div class="flex items-center justify-end">
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-800 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-200 disabled:opacity-25 transition">
+                    Update <i class="fas fa-pencil-alt ml-1"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

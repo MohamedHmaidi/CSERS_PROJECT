@@ -1,0 +1,41 @@
+<div class="flex justify-center items-center h-screen">
+  <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h2 class="text-3xl font-semibold mb-6 text-red-600 text-center">Add New Incident</h2>
+    <form (ngSubmit)="addIncident()" class="space-y-6">
+      <div>
+        <label for="localisation" class="block text-lg font-medium text-gray-800 mb-2">
+          <i class="fas fa-map-marker-alt text-red-600 mr-2"></i> Localisation:
+        </label>
+        <div class="grid grid-cols-2 gap-4">
+          <label class="inline-flex items-center">
+            <input type="radio" name="localisation" value="ESB" [(ngModel)]="incident.localisation" class="mr-2 text-red-600">
+            <span class="text-lg font-medium text-gray-700">ESB</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="radio" name="localisation" value="ESPRIT" [(ngModel)]="incident.localisation" class="mr-2 text-red-600">
+            <span class="text-lg font-medium text-gray-700">ESPRIT</span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <label for="description" class="block text-lg font-medium text-gray-800 mb-2">
+          <i class="fas fa-info-circle text-red-600 mr-2"></i> Description:
+        </label>
+        <textarea id="description" name="description" [(ngModel)]="incident.description" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50 resize-none"></textarea>
+      </div>
+      <div>
+        <label for="typeIncident" class="block text-lg font-medium text-gray-800 mb-2">
+          <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i> Type Incident:
+        </label>
+        <select id="typeIncident" name="typeIncident" [(ngModel)]="incident.typeIncident" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50 bg-white">
+          <option *ngFor="let type of typesIncident" [ngValue]="type">{{ type.nomTypeIncident }}</option>
+        </select>
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="inline-flex items-center px-6 py-3 bg-red-600 border border-transparent rounded-md font-semibold text-lg text-white uppercase tracking-widest hover:bg-red-700 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-200 disabled:opacity-25 transition">
+          Add Incident <i class="fas fa-plus-circle ml-2"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
