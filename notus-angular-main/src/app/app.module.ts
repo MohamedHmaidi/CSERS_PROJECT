@@ -4,7 +4,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 // layouts
 import { AdminComponent } from "./layouts/admin/admin.component";
 import { AuthComponent } from "./layouts/auth/auth.component";
@@ -93,7 +93,7 @@ import { AddIncidentComponent } from './add-incident/add-incident.component';
     UpdateIncidentComponent,
     AddIncidentComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 })
 export class IncidentListComponent implements OnInit {
   incidents: Incident[];
+  currentPage: number = 1;
+  pageSize: number = 5; 
 
-  constructor(private incidentService: IncidentService, private snackBar: MatSnackBar,private router: Router) { } 
+  constructor(private incidentService: IncidentService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.getIncidents();
@@ -29,18 +31,33 @@ export class IncidentListComponent implements OnInit {
       this.incidentService.deleteIncident(incidentId).subscribe(() => {
         this.incidents = this.incidents.filter(incident => incident.idIncident !== incidentId);
 
-        
         this.snackBar.open('Incident deleted successfully!', 'Close', {
-          duration: 3000, 
+          duration: 3000,
           verticalPosition: 'top',
-          panelClass: ['bg-green-500', 'text-white'] 
+          panelClass: ['bg-green-500', 'text-white']
         });
       });
     }
   }
 
+  UpdateIncident(idIncident: number) {
+    this.router.navigate(['update-incident', idIncident]);
+  }
 
-  UpdateIncident(idIncident:number){
-    this.router.navigate(['update-incident',idIncident]);
+
+  onPageChange(pageNumber: number) {
+    this.currentPage = pageNumber;
+  }
+
+
+  get paginationStart(): number {
+    return (this.currentPage - 1) * this.pageSize;
+  }
+
+  get paginationEnd(): number {
+    return Math.min(this.currentPage * this.pageSize, this.incidents.length);
+  }
+  get totalPages(): number {
+    return Math.ceil(this.incidents.length / this.pageSize);
   }
 }

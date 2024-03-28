@@ -37,4 +37,8 @@ export class IncidentService {
     const url = `${this. getTypeIncidentByIdUrl}${id}`;
     return this.httpClient.get<TypeIncident>(url);
   }
+  getIncidentById(id: number): Observable<Incident> {
+    const url = `${this.getIncById}${id}`;
+    return this.httpClient.get<Incident>(url);
+  }
 }

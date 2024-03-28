@@ -1,75 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Incident</title>
-   
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-</head>
-
-<body class="bg-red-50 p-8">
-    <br><br><br><br>
-    <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold mb-6 text-red-600">Update Incident</h2>
-        <form>
-            <div class="mb-4 flex items-center">
-                <label for="localisation" class="block text-sm font-medium text-gray-700 mr-2">
-                    <i class="fas fa-map-marker-alt text-red-600"></i>
-                </label>
-                <div class="relative w-full">
-                    <select id="localisation" name="localisation" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-                        <option value="ESPRIT">ESPRIT</option>
-                        <option value="ESB">ESB</option>
-                    </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-gray-400">
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
+<div class="container mx-auto px-4 h-full">
+    <br><br><br>
+    <a routerLink="/incidents" class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150">Retour</a>
+    <div class="flex content-center items-center justify-center h-full">
+        <div class="w-full lg:w-6/12 px-4">
+            <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
+                <div class="rounded-t mb-0 px-6 py-6 bg-blueGray-800 text-white flex justify-between items-center">
+                    <h2 class="text-3xl font-semibold lg:text-center text-center">Update Incident</h2>
+                    <div></div> 
+                </div>
+                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                    <form (ngSubmit)="updateIncident()" class="space-y-6">
+                        <div class="mb-4">
+                            <label for="localisation" class="block text-lg font-medium text-gray-800 mb-2">
+                                <i class="fas fa-map-marker-alt text-red-600 mr-2"></i> Localisation:
+                            </label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="localisation" value="ESB" [(ngModel)]="incident.localisation" class="mr-2 text-red-600">
+                                    <span class="text-lg font-medium text-gray-700">ESB</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="localisation" value="ESPRIT" [(ngModel)]="incident.localisation" class="mr-2 text-red-600">
+                                    <span class="text-lg font-medium text-gray-700">ESPRIT</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="description" class="block text-lg font-medium text-gray-800 mb-2">
+                                <i class="fas fa-info-circle text-red-600 mr-2"></i> Description:
+                            </label>
+                            <textarea id="description" name="description" [(ngModel)]="incident.description" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50 resize-none"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="typeIncident" class="block text-lg font-medium text-gray-800 mb-2">
+                                <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i> Type Incident:
+                            </label>
+                            <select id="typeIncident" name="typeIncident" [(ngModel)]="incident.typeIncident" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50 bg-white">
+                                <option *ngFor="let type of typesIncident" [ngValue]="type">{{ type.nomTypeIncident }}</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="status" class="block text-lg font-medium text-gray-800 mb-2">
+                                <i class="fas fa-check-circle text-red-600 mr-2"></i> Status:
+                            </label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <label class="inline-flex items-center mr-6">
+                                    <input type="radio" name="status" value="IN_PROGRESS" [(ngModel)]="incident.status" class="mr-2 text-red-600">
+                                    <span class="text-lg font-medium text-gray-700">In Progress</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="status" value="RESOLVED" [(ngModel)]="incident.status" class="mr-2 text-red-600">
+                                    <span class="text-lg font-medium text-gray-700">Resolved</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button type="submit" class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150">Update Incident <i class="fas fa-sync-alt ml-2"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="mb-4 flex items-center">
-                <label for="description" class="block text-sm font-medium text-gray-700 mr-2">
-                    <i class="fas fa-info-circle text-red-600"></i>
-                </label>
-                <textarea id="description" name="description" rows="3" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50"></textarea>
-            </div>
-            <div class="mb-4">
-                <span class="block text-sm font-medium text-gray-700 mb-2">
-                    <i class="fas fa-info-circle text-red-600"></i> Status
-                </span>
-                <div class="flex items-center space-x-4">
-                    <label for="resolved" class="flex items-center">
-                        <input type="radio" id="resolved" name="status" value="RESOLVED" class="text-red-500 focus:ring-red-500">
-                        <span class="ml-2 text-sm">Resolved</span>
-                    </label>
-                    <label for="inProgress" class="flex items-center">
-                        <input type="radio" id="inProgress" name="status" value="IN_PROGRESS" class="text-red-500 focus:ring-red-500">
-                        <span class="ml-2 text-sm">In Progress</span>
-                    </label>
-                </div>
-            </div>
-            <div class="mb-4 flex items-center">
-                <label for="typeIncident" class="block text-sm font-medium text-gray-700 mr-2">
-                    <i class="fas fa-exclamation-triangle text-red-600"></i>
-                </label>
-                <select id="typeIncident" name="typeIncident" class="block w-full border-gray-300 rounded-md shadow-sm focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-                    
-                    <option value="1">Type 1</option>
-                    <option value="2">Type 2</option>
-                    <option value="3">Type 3</option>
-                </select>
-            </div>
-            <div class="flex items-center justify-end">
-                <button type="submit"
-                    class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 active:bg-red-800 focus:outline-none focus:border-red-900 focus:ring focus:ring-red-200 disabled:opacity-25 transition">
-                    Update <i class="fas fa-pencil-alt ml-1"></i>
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
-</body>
-
-</html>
+</div>

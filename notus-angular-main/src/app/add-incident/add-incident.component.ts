@@ -26,9 +26,20 @@ export class AddIncidentComponent implements OnInit {
   }
 
   addIncident(): void {
+    
+    if (!this.incident.typeIncident || !this.incident.localisation) {
+      this.snackBar.open('Please fill in all required fields!', 'Close', {
+        duration: 3000,
+        verticalPosition: 'top',
+        panelClass: ['bg-red-500', 'text-white']
+      });
+      return;
+    }
   
+    
     this.incident.status = 'IN_PROGRESS';
 
+   
     const newIncident: Incident = {
       localisation: this.incident.localisation,
       description: this.incident.description,
@@ -36,13 +47,16 @@ export class AddIncidentComponent implements OnInit {
       status: this.incident.status 
     } as Incident;
 
+   
     this.incidentService.addIncident(newIncident)
       .subscribe(() => {
+        
         this.snackBar.open('Incident added successfully!', 'Close', {
           duration: 3000,
           verticalPosition: 'top',
           panelClass: ['bg-green-500', 'text-white']
         });
+        
         this.router.navigate(['/incidents']); 
       });
   }
