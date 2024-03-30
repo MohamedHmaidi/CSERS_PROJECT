@@ -13,7 +13,7 @@
 <h2 class="text-3xl font-bold mb-8 text-center">Incident List</h2>
 
 <div class="overflow-x-auto">
-  <table class="table-auto bg-white shadow-md rounded-lg w-full">
+  <table class="table-auto shadow-md rounded-lg w-full" style="background-color: #F3F4F6;">
     <!-- Table header -->
     <thead class="bg-red-200">
       <tr>
@@ -64,23 +64,24 @@
   </table>
 </div>
 
-<!-- Pagination controls -->
 <div class="flex justify-end mt-4">
   <div>
-    <!-- Bouton Précédent -->
     <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)"
             class="px-3 py-1 rounded border mr-2 hover:bg-gray-200">
       <i class="fas fa-chevron-left"></i>
     </button>
-    <!-- Numéro de page -->
     <span class="px-3 py-1 border rounded mr-2">{{ currentPage }} / {{ totalPages }}</span>
-    <!-- Bouton Suivant -->
     <button [disabled]="currentPage * pageSize >= incidents.length" (click)="onPageChange(currentPage + 1)"
             class="px-3 py-1 rounded border hover:bg-gray-200">
       <i class="fas fa-chevron-right"></i>
     </button>
   </div>
 </div>
+
+
+<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-4 right-4" (click)="navigateToTypeIncidents()">
+  <i class="fas fa-arrow-right mr-1"></i> All Incident Types
+</button>
 
 </body>
 </html>

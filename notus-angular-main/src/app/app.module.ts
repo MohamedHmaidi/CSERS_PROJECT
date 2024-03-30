@@ -8,7 +8,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 // layouts
 import { AdminComponent } from "./layouts/admin/admin.component";
 import { AuthComponent } from "./layouts/auth/auth.component";
-
+import { MatSliderModule } from '@angular/material/slider';
 // admin views
 import { DashboardComponent } from "./views/admin/dashboard/dashboard.component";
 import { MapsComponent } from "./views/admin/maps/maps.component";
@@ -52,6 +52,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IncidentListComponent } from './incident-list/incident-list.component';
 import { UpdateIncidentComponent } from './update-incident/update-incident.component';
 import { AddIncidentComponent } from './add-incident/add-incident.component';
+import { TypeIncidentListComponent } from './type-incident-list/type-incident-list.component';
+import { AddIncidentTypeComponent } from './add-incident-type/add-incident-type.component';
+
 
 @NgModule({
   declarations: [
@@ -92,8 +95,11 @@ import { AddIncidentComponent } from './add-incident/add-incident.component';
     IncidentListComponent,
     UpdateIncidentComponent,
     AddIncidentComponent,
+    TypeIncidentListComponent,
+    AddIncidentTypeComponent,
+    
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule,MatSliderModule],
   providers: [],
   bootstrap: [AppComponent],
 })

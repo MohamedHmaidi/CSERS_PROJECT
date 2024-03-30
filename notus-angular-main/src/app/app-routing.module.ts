@@ -23,11 +23,15 @@ import { ProfileComponent } from "./views/profile/profile.component";
 import {IncidentListComponent} from "./incident-list/incident-list.component"
 import { UpdateIncidentComponent } from "./update-incident/update-incident.component";
 import { AddIncidentComponent } from "./add-incident/add-incident.component";
+import { TypeIncidentListComponent } from "./type-incident-list/type-incident-list.component";
+import { AddIncidentTypeComponent } from "./add-incident-type/add-incident-type.component";
 const routes: Routes = [
-
+  
   {path: 'incidents', component: IncidentListComponent} ,
+  {path: 'TypeIncidents', component: TypeIncidentListComponent} ,
   {path: 'add-incident', component: AddIncidentComponent} ,
   {path: 'update-incident/:id', component:  UpdateIncidentComponent} ,
+  {path: 'addType', component:   AddIncidentTypeComponent},
   // admin views
   {
     path: "admin",

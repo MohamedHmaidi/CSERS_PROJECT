@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Incident } from '../incident';
 import { IncidentService } from '../incident.service';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { Router } from '@angular/router';
 
 @Component({
@@ -59,5 +59,8 @@ export class IncidentListComponent implements OnInit {
   }
   get totalPages(): number {
     return Math.ceil(this.incidents.length / this.pageSize);
+  }
+  navigateToTypeIncidents() {
+    this.router.navigate(['/TypeIncidents']);
   }
 }
