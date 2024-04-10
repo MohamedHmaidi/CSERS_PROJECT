@@ -63,4 +63,5 @@ export class IncidentListComponent implements OnInit {
   navigateToTypeIncidents() {
     this.router.navigate(['/TypeIncidents']);
   }
+
 }
