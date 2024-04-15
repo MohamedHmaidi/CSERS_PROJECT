@@ -25,13 +25,15 @@ import { UpdateIncidentComponent } from "./update-incident/update-incident.compo
 import { AddIncidentComponent } from "./add-incident/add-incident.component";
 import { TypeIncidentListComponent } from "./type-incident-list/type-incident-list.component";
 import { AddIncidentTypeComponent } from "./add-incident-type/add-incident-type.component";
+import { ChatComponent } from "./chat/chat.component";
 const routes: Routes = [
-  
+  {path: 'chatRoom',component: ChatComponent},
   {path: 'incidents', component: IncidentListComponent} ,
   {path: 'TypeIncidents', component: TypeIncidentListComponent} ,
   {path: 'add-incident', component: AddIncidentComponent} ,
   {path: 'update-incident/:id', component:  UpdateIncidentComponent} ,
   {path: 'addType', component:   AddIncidentTypeComponent},
+  
   // admin views
   {
     path: "admin",

@@ -4,27 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChatRoom</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
     
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-top: 50px;
+      color: #ff3333;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
     .chat-container {
       max-width: 600px;
-      margin: 0 auto;
+      margin: 20px auto;
       padding: 20px;
-      background-color: #f0f0f0;
+      background-color: #ffcccc;
       border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .chat-messages {
       max-height: 300px;
       overflow-y: auto;
+      padding: 10px;
     }
 
     .message {
       margin-bottom: 10px;
       padding: 10px;
-      background-color: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sent-message {
+      background-color: #3498db; /* Couleur pour les messages envoyés */
+      text-align: right;
+    }
+
+    .received-message {
+      background-color: #e74c3c; /* Couleur pour les messages reçus */
+      text-align: left;
     }
 
     .sender {
@@ -33,14 +60,18 @@
     }
 
     .content {
-      color: #666;
+      color: #000000;
     }
 
     .message-input {
-      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #ffcccc;
     }
 
     input[type="text"] {
+      flex: 1;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -49,33 +80,55 @@
     }
 
     button {
-      padding: 10px 20px;
-      background-color: #007bff;
+      padding: 10px;
+      background-color: #ff3333;
       color: #fff;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #ff0000;
+    }
+
+    /* Animation */
+    .message.ng-enter {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    .message.ng-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
   </style>
 </head>
 <body>
- 
-  <div class="chat-container">
-    <div class="chat-messages">
-      <div class="message" *ngFor="let msg of chatService.messages">
-        <span class="sender">{{ msg.sender }}:</span>
-        <span class="content">{{ msg.content }}</span>
-      </div>
-    </div>
-    <div class="message-input">
-      <input type="text" [(ngModel)]="message" placeholder="Type your message">
-      <button (click)="sendMessage()">Send</button>
+
+<div class="chat-container">
+  <h1>Welcome to the Chat Room</h1>
+  <div class="chat-messages">
+    <div class="message" *ngFor="let msg of chatService.messages" [ngClass]="{'sent-message': msg.sender === chatService.username, 'received-message': msg.sender !== chatService.username}" [@messageAnimation]="msg">
+      <span class="sender">{{ msg.sender }}:</span>
+      <span class="content">{{ msg.content }}</span>
     </div>
   </div>
+  <div class="message-input">
+    <input type="text" [(ngModel)]="message" placeholder="Type your message" [disabled]="!chatService.username">
+    <button (click)="sendMessage()" [disabled]="!chatService.username">
+      <i class="fas fa-paper-plane"></i> 
+    </button>
+  </div>
+
+  <div *ngIf="!chatService.username">
+    <input type="text" [(ngModel)]="usernameInput" placeholder="Enter your username">
+    <button (click)="setUsername()">Set Username</button>
+  </div>
+</div>
+
 </body>
 </html>

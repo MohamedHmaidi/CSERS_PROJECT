@@ -9,7 +9,7 @@ import * as SockJS from 'sockjs-client';
 export class ChatService {
   private stompClient: Stomp.Client;
   messages: any[] = [];
-  username: string = 'mohamed'; 
+  username: string = ''; 
   connectionEstablished: boolean = false;
   onConnectCallback: () => void;
 
@@ -20,7 +20,7 @@ export class ChatService {
     const socket = new SockJS('http://localhost:8089/csers/ws');
     this.stompClient = Stomp.over(socket);
     this.stompClient.connect({}, frame => {
-      console.log('Connecté : ' + frame);
+      console.log('Connected: ' + frame);
       this.connectionEstablished = true; 
       if (this.onConnectCallback) {
         this.onConnectCallback(); 
@@ -39,16 +39,25 @@ export class ChatService {
     }
   }
 
-  addUser() {
+  setUsername(username: string) {
+ 
+
+
+    this.username = username;
+   
+    this.addUser();
+  }
+
+  private addUser() {
     if (this.connectionEstablished && this.username) { 
-      const joinMessage = `  ${this.username} a rejoint la salle de discussion`; 
-      this.stompClient.send('/app/chat.addUser', {}, JSON.stringify({ type: 'JOIN', content: joinMessage, sender: this.username })); // Envoyer le message de connexion
+      const joinMessage = `${this.username} has joined the chat room`; 
+      this.stompClient.send('/app/chat.addUser', {}, JSON.stringify({ type: 'JOIN', content: joinMessage, sender: this.username }));
     }
   }
 
   private handleMessage(message: any) {
     if (message.type === 'LEAVE') {
-      this.messages.push({ sender: this.username, content: `${message.sender} a quitté la salle de discussion` });
+      this.messages.push({ sender: this.username, content: `${message.sender} has left the chat room` });
     } else {
       this.messages.push(message);
     }
