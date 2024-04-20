@@ -108,9 +108,7 @@
                             <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                                 <i class="fas fa-map-marker-alt mr-1"></i> Localisation
                             </th>
-                            <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                                <i class="fas fa-info-circle mr-1"></i> Description
-                            </th>
+                           
                             <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                                 <i class="fas fa-calendar-alt mr-1"></i> Incident Date
                             </th>
@@ -130,7 +128,6 @@
                     <tbody>
                         <tr *ngFor="let i of incidents.slice(paginationStart, paginationEnd)" class="hover:bg-gray-100">
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.localisation }}</td>
-                            <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.description }}</td>
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.incidentDate | date: 'medium' }}</td>
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">
                                 <span class="inline-block rounded-full px-2 py-1 text-sm font-semibold text-white {{ i.status === 'IN_PROGRESS' ? 'bg-yellow-500' : 'bg-blue-500' }}">
@@ -144,10 +141,15 @@
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.typeIncident.nomTypeIncident }}</td>
                             <td class="border px-6 py-4 whitespace-nowrap">
                                 <button (click)="UpdateIncident(i.idIncident)" class="button-transform bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
-                                    <i class="fas fa-pencil-alt mr-1"></i> Update
+                                    <i class="fas fa-pencil-alt"></i>
                                 </button>
+                            
+                                <button class="button-transform bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            
                                 <button class="button-transform bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="deleteIncident(i.idIncident)">
-                                    <i class="fas fa-trash mr-1"></i> Delete
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>

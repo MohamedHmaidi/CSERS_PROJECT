@@ -55,6 +55,7 @@ import { AddIncidentComponent } from './add-incident/add-incident.component';
 import { TypeIncidentListComponent } from './type-incident-list/type-incident-list.component';
 import { AddIncidentTypeComponent } from './add-incident-type/add-incident-type.component';
 import { ChatComponent } from './chat/chat.component';
+import { MapComponent } from './map/map.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { ChatComponent } from './chat/chat.component';
     TypeIncidentListComponent,
     AddIncidentTypeComponent,
     ChatComponent,
+    MapComponent,
     
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule,MatSliderModule],
