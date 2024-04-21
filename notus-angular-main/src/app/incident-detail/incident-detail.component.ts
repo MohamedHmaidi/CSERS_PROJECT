@@ -22,7 +22,7 @@ export class IncidentDetailComponent implements OnInit {
     this.incidentService.getIncidentById(incidentId)
       .subscribe(incident => {
         this.incident = incident;
-        if (this.incident.localisation === 'ANOTHER' && this.incident.latitude && this.incident.longitude) {
+        if (this.incident.latitude && this.incident.longitude) {
           this.initMap();
         }
       });
@@ -33,8 +33,8 @@ export class IncidentDetailComponent implements OnInit {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
-
-    L.marker([this.incident.latitude, this.incident.longitude], {
+  
+    const marker = L.marker([this.incident.latitude, this.incident.longitude], {
       icon: L.icon({
         iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
         iconSize: [25, 41],
@@ -42,5 +42,7 @@ export class IncidentDetailComponent implements OnInit {
         popupAnchor: [0, -41]
       })
     }).addTo(map);
+  
+    marker.bindPopup(`<b>Incident is Here</b>`).openPopup();
   }
 }

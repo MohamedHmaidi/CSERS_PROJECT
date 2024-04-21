@@ -37,8 +37,13 @@ export class AddIncidentComponent implements OnInit {
 
     this.incident.status = 'IN_PROGRESS';
 
-   
-    if (this.incident.localisation === 'ANOTHER') {
+    if (this.incident.localisation === 'ESB') {
+      this.incident.latitude = 36.89936386868179;
+      this.incident.longitude = 10.189520098104273;
+    } else if (this.incident.localisation === 'ESPRIT') {
+      this.incident.latitude = 36.899150148813824;
+      this.incident.longitude = 10.189259470361218;
+    } else if (this.incident.localisation === 'ANOTHER') {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           position => {
@@ -64,10 +69,11 @@ export class AddIncidentComponent implements OnInit {
       } else {
         console.error('Geolocation is not supported by this browser.');
       }
-    } else {
       
-      this.addIncidentToService();
+      return; 
     }
+
+    this.addIncidentToService();
   }
 
   addIncidentToService(): void {
