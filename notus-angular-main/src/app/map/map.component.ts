@@ -24,7 +24,7 @@ export class MapComponent implements OnInit {
           this.map.setView([latitude, longitude], 13); 
           L.marker([latitude, longitude], {
             icon: L.icon({
-              iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png', // Example marker icon URL
+              iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
               iconSize: [25, 41],
               iconAnchor: [13, 41],
               popupAnchor: [0, -41]

@@ -29,6 +29,11 @@ public class Incident {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "latitude")
+    private Double latitude ;
+    @Column(name ="longitude" )
+    private Double longitude ;
+
     @Column(name = "incident_date", nullable = false, updatable = false)
     @CreationTimestamp
     private Date incidentDate;

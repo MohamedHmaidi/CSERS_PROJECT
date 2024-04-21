@@ -3,6 +3,9 @@ import { Incident } from '../incident';
 import { IncidentService } from '../incident.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { IncidentDetailComponent } from '../incident-detail/incident-detail.component';
+
 
 @Component({
   selector: 'app-incident-list',
@@ -14,7 +17,7 @@ export class IncidentListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5; 
 
-  constructor(private incidentService: IncidentService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private dialog: MatDialog,private incidentService: IncidentService, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.getIncidents();
@@ -62,6 +65,13 @@ export class IncidentListComponent implements OnInit {
   }
   navigateToTypeIncidents() {
     this.router.navigate(['/TypeIncidents']);
+  }
+
+  openIncidentDetailDialog(incidentId: number): void {
+    const dialogRef = this.dialog.open(IncidentDetailComponent, {
+      width: '800px',
+      data: { incidentId }
+    });
   }
 
 }

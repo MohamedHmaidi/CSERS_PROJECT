@@ -26,7 +26,6 @@ export class AddIncidentComponent implements OnInit {
   }
 
   addIncident(): void {
-    
     if (!this.incident.typeIncident || !this.incident.localisation) {
       this.snackBar.open('Please fill in all required fields!', 'Close', {
         duration: 3000,
@@ -35,28 +34,50 @@ export class AddIncidentComponent implements OnInit {
       });
       return;
     }
-  
-    
+
     this.incident.status = 'IN_PROGRESS';
 
    
-    const newIncident: Incident = {
-      localisation: this.incident.localisation,
-      description: this.incident.description,
-      typeIncident: this.incident.typeIncident,
-      status: this.incident.status 
-    } as Incident;
+    if (this.incident.localisation === 'ANOTHER') {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords;
+            
+            this.incident.latitude = latitude;
+            this.incident.longitude = longitude;
+            
+            this.addIncidentToService();
+          },
+          error => {
+            console.error('Error getting geolocation:', error);
+            this.snackBar.open('Error getting geolocation!', 'Close', {
+              duration: 3000,
+              verticalPosition: 'top',
+              panelClass: ['bg-red-500', 'text-white']
+            });
+          },
+          {
+            enableHighAccuracy: true 
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    } else {
+      
+      this.addIncidentToService();
+    }
+  }
 
-   
-    this.incidentService.addIncident(newIncident)
+  addIncidentToService(): void {
+    this.incidentService.addIncident(this.incident)
       .subscribe(() => {
-        
         this.snackBar.open('Incident added successfully!', 'Close', {
           duration: 3000,
           verticalPosition: 'top',
           panelClass: ['bg-green-500', 'text-white']
         });
-        
         this.router.navigate(['/incidents']); 
       });
   }

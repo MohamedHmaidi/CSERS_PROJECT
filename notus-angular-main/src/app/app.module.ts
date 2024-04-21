@@ -56,6 +56,9 @@ import { TypeIncidentListComponent } from './type-incident-list/type-incident-li
 import { AddIncidentTypeComponent } from './add-incident-type/add-incident-type.component';
 import { ChatComponent } from './chat/chat.component';
 import { MapComponent } from './map/map.component';
+import { IncidentDetailComponent } from './incident-detail/incident-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -101,9 +104,11 @@ import { MapComponent } from './map/map.component';
     AddIncidentTypeComponent,
     ChatComponent,
     MapComponent,
+    IncidentDetailComponent,
+
     
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule,MatSliderModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule,HttpClientModule,MatSnackBarModule,FormsModule,MatPaginatorModule,MatSliderModule,MatDialogModule],
   providers: [],
   bootstrap: [AppComponent],
 })
