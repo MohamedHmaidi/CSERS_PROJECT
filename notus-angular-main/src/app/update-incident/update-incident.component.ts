@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Incident } from '../incident';
 import { IncidentService } from '../incident.service';
 import { TypeIncident } from '../type-incident';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-update-incident',
   templateUrl: './update-incident.component.html',
   styleUrls: ['./update-incident.component.css']
 })
 export class UpdateIncidentComponent implements OnInit {
-  incident: Incident = new Incident(); 
+  incident: Incident;
   typesIncident: TypeIncident[];
 
-  constructor(private route: ActivatedRoute, private incidentService: IncidentService,private snackBar: MatSnackBar, private router: Router) { }
+  constructor(
+    private dialogRef: MatDialogRef<UpdateIncidentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private incidentService: IncidentService,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id'); 
-    this.getIncidentDetails(id);
+    
+    this.incident = this.data.incident;
     this.getTypesIncident();
-  }
-
-  getIncidentDetails(id: number): void {
-    this.incidentService.getIncidentById(id)
-      .subscribe(incident => this.incident = incident);
   }
 
   getTypesIncident(): void {
@@ -40,6 +40,13 @@ export class UpdateIncidentComponent implements OnInit {
           verticalPosition: 'top',
           panelClass: ['bg-green-500', 'text-white']
         });
-        this.router.navigate(['/incidents']); 
+        
+        this.dialogRef.close({ updated: true });
       });
-}}
+  }
+
+  closeDialog(): void {
+    
+    this.dialogRef.close({ updated: false });
+  }
+}

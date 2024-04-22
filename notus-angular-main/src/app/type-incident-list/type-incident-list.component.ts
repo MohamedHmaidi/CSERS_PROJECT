@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddIncidentTypeComponent } from '../add-incident-type/add-incident-type.component';
 import { TypeIncident } from '../type-incident';
 import { TypeIncidentService } from '../type-incident.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
@@ -11,7 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class TypeIncidentListComponent implements OnInit {
   incidents: TypeIncident[];
   
-  constructor(private typeService: TypeIncidentService, private snackBar: MatSnackBar) { }
+  constructor(
+    private typeService: TypeIncidentService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.getTypeIncidents();
@@ -32,6 +38,19 @@ export class TypeIncidentListComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: ['bg-green-500', 'text-blue']
       });
+    });
+  }
+
+  openAddTypeDialog(): void {
+    const dialogRef = this.dialog.open(AddIncidentTypeComponent, {
+      width: '400px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+      this.getTypeIncidents();
     });
   }
 }

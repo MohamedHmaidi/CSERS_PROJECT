@@ -4,8 +4,8 @@ import { IncidentService } from '../incident.service';
 import { MatSnackBar } from '@angular/material/snack-bar'; 
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdateIncidentComponent } from '../update-incident/update-incident.component';
 import { IncidentDetailComponent } from '../incident-detail/incident-detail.component';
-
 
 @Component({
   selector: 'app-incident-list',
@@ -17,7 +17,12 @@ export class IncidentListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5; 
 
-  constructor(private dialog: MatDialog,private incidentService: IncidentService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(
+    private dialog: MatDialog,
+    private incidentService: IncidentService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getIncidents();
@@ -43,15 +48,23 @@ export class IncidentListComponent implements OnInit {
     }
   }
 
-  UpdateIncident(idIncident: number) {
-    this.router.navigate(['update-incident', idIncident]);
-  }
+  openUpdateIncidentDialog(incident: Incident): void {
+    const dialogRef = this.dialog.open(UpdateIncidentComponent, {
+      width: '800px',
+      data: { incident }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.updated) {
+       
+        this.getIncidents();
+      }
+    });
+  }
 
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
   }
-
 
   get paginationStart(): number {
     return (this.currentPage - 1) * this.pageSize;
@@ -60,9 +73,11 @@ export class IncidentListComponent implements OnInit {
   get paginationEnd(): number {
     return Math.min(this.currentPage * this.pageSize, this.incidents.length);
   }
+
   get totalPages(): number {
     return Math.ceil(this.incidents.length / this.pageSize);
   }
+
   navigateToTypeIncidents() {
     this.router.navigate(['/TypeIncidents']);
   }
@@ -73,5 +88,4 @@ export class IncidentListComponent implements OnInit {
       data: { incidentId }
     });
   }
-
 }

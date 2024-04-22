@@ -1,15 +1,10 @@
 <div class="sidebar">
     <app-sidebar></app-sidebar>
 </div>
-<div class="main-content" style="margin-left: 250px;"> <!-- Ajustement du style ici -->
+<div class="main-content" style="margin-left: 250px;">
     <app-header-stats></app-header-stats>
     <section class="container mx-auto p-10 md:py-12 px-0 md:p-8 md:px-0 relative">
-      <!--
-<button class="absolute top-0 left-0 p-2 bg-blue-500 text-blue-500 border border-blue-500 rounded-md text-gray-800 mt-4 ml-4" [routerLink]="['/incidents']">
-    <i class="fas fa-arrow-left"></i> Back
-</button>
--->
-        <button class="absolute top-0 right-0 p-2 bg-blue-500 text-blue-500 border border-blue-500 rounded-md text-gray-800 mt-4 mr-4" [routerLink]="['/addType']">
+        <button class="absolute top-0 right-0 p-2 bg-blue-500 text-blue-500 border border-blue-500 rounded-md text-gray-800 mt-4 mr-4" (click)="openAddTypeDialog()">
             <i class="fas fa-plus"></i> Add Type
         </button>
         <br><br> 
@@ -77,7 +72,7 @@
     }
     
     .fixed-size-card {
-        width: 300px; /* Définir la largeur fixe des cartes */
-        height: 350px; /* Définir la hauteur fixe des cartes */
+        width: 300px; 
+        height: 350px; 
     }
 </style>

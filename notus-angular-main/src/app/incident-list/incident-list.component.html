@@ -30,6 +30,7 @@
         .column-transform {
             transition: transform 0.4s ease;
             font-weight: normal;
+            font-size: 14px;
         }
 
         .button-transform:hover,
@@ -83,14 +84,56 @@
             }
         }
 
-        /* Decrease font size for table content */
         table {
-            font-size: 14px; /* Adjust the value as needed */
+            font-size: 14px;
         }
 
         th,
         td {
-            padding: 8px; /* Adjust the padding as needed */
+            padding: 8px;
+        }
+
+        
+        th {
+            background-color: #f44336; 
+            color: white;
+        }
+
+       
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pagination-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background-color: #f44336; 
+            color: white;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .pagination-button:hover {
+            background-color: #ff4081; 
+        }
+
+        .pagination-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .pagination-info {
+            margin: 0 10px;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -103,7 +146,9 @@
         <app-header-stats></app-header-stats>
 
         <br><br><br>
-        <h2 class="text-3xl font-bold mb-8 text-center rotate-animation text-gradient">Incident List</h2>
+        <h2 class="text-3xl font-bold mb-8 text-center rotate-animation text-gradient">
+            <span class="text-5xl">Incident List</span>
+        </h2>
 
         <button class="button-transform bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" (click)="navigateToTypeIncidents()">
             <i class="fas fa-arrow-right mr-1"></i> All Incident Types
@@ -116,7 +161,7 @@
                     <thead class="bg-red-200">
                         <tr>
                             <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                                <i class="fas fa-map-marker-alt mr-1"></i> Localisation
+                                <i class="fas fa-map-marker-alt mr-1"></i> Location
                             </th>
                            
                             <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
@@ -129,7 +174,7 @@
                                 <i class="fas fa-user mr-1"></i> User
                             </th>
                             <th class="column-transform px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
-                                <i class="fas fa-exclamation-triangle mr-1"></i> Type Incident
+                                <i class="fas fa-exclamation-triangle mr-1"></i> Incident Type
                             </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">Actions</th>
                         </tr>
@@ -150,7 +195,7 @@
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.user.firstname }} {{ i.user.lastname }}</td>
                             <td class="border px-6 py-4 whitespace-nowrap column-transform">{{ i.typeIncident.nomTypeIncident }}</td>
                             <td class="border px-6 py-4 whitespace-nowrap">
-                                <button (click)="UpdateIncident(i.idIncident)" class="button-transform bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
+                                <button (click)="openUpdateIncidentDialog(i)" class="button-transform bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                             
@@ -168,16 +213,15 @@
             </div>
         </div>
 
-        <div class="flex justify-end mt-4">
-            <div>
-                <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="px-3 py-1 rounded border mr-2 hover:bg-gray-200">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <span class="px-3 py-1 border rounded mr-2">{{ currentPage }} / {{ totalPages }}</span>
-                <button [disabled]="currentPage * pageSize >= incidents.length" (click)="onPageChange(currentPage + 1)" class="px-3 py-1 rounded border hover:bg-gray-200">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
+       
+        <div class="pagination-container">
+            <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)" class="pagination-button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
+            <button [disabled]="currentPage * pageSize >= incidents.length" (click)="onPageChange(currentPage + 1)" class="pagination-button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </div>
 

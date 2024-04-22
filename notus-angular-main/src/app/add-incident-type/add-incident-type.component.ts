@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Importez MatSnackBar
-
 import { TypeIncident } from '../type-incident';
 import { TypeIncidentService } from '../type-incident.service';
 
@@ -15,7 +15,7 @@ export class AddIncidentTypeComponent implements OnInit {
 
   constructor(
     private typeIncidentService: TypeIncidentService,
-    private router: Router,
+    private dialogRef: MatDialogRef<AddIncidentTypeComponent>,
     private snackBar: MatSnackBar 
   ) { }
 
@@ -33,9 +33,8 @@ export class AddIncidentTypeComponent implements OnInit {
           panelClass: ['bg-green-500', 'text-blue'] 
         });
         
-        this.router.navigate(['/TypeIncidents']);
-       
-        this.newTypeIncident = new TypeIncident();
+        
+        this.dialogRef.close();
       },
       error => {
         console.error('Erreur lors de l\'ajout du type d\'incident:', error);
