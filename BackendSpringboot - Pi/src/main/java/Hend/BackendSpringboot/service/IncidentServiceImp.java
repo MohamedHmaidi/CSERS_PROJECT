@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -47,4 +50,22 @@ public class IncidentServiceImp implements IIncidentService{
     public Incident modifyIncident(Incident incident) {
         return incidentRepository.save(incident);
     }
+
+    @Override
+    public Map<Date, Integer> countIncidentsPerDay() {
+        Map<Date, Integer> incidentsPerDay = new HashMap<>();
+        List<Object[]> result = incidentRepository.countIncidentsPerDay();
+        for (Object[] row : result) {
+            Date date = (Date) row[0];
+            int count = ((Number) row[1]).intValue();
+            incidentsPerDay.put(date, count);
+        }
+        return incidentsPerDay;
+    }
+
+    public List<Object[]> countIncidentsByType() {
+        return incidentRepository.countIncidentsByType();
+    }
+
+
 }
