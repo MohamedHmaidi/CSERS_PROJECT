@@ -22,11 +22,13 @@ export class ChatComponent implements OnInit {
   constructor(public chatService: ChatService) { }
 
   ngOnInit(): void {
-    this.chatService.initializeWebSocketConnection(() => {});
+    this.chatService.initializeWebSocketConnection(() => {
+      this.fetchChatMessages(); // Fetch chat messages after establishing WebSocket connection
+    });
   }
 
   sendMessage() {
-    if (this.message && this.message.trim() !== '') { 
+    if (this.message && this.message.trim() !== '') {
       this.chatService.sendMessage(this.message);
       this.message = '';
     }
@@ -37,5 +39,16 @@ export class ChatComponent implements OnInit {
       this.chatService.setUsername(this.usernameInput);
       this.usernameInput = '';
     }
+  }
+
+  fetchChatMessages() {
+    this.chatService.getAllMessages().subscribe(
+      (messages: any[]) => {
+        this.chatService.messages = messages;
+      },
+      (error) => {
+        console.log('Error fetching chat messages:', error);
+      }
+    );
   }
 }

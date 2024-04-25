@@ -1,6 +1,8 @@
 package Hend.BackendSpringboot.controller;
 
+import Hend.BackendSpringboot.entity.ChatMessage;
 import Hend.BackendSpringboot.entity.Incident;
+import Hend.BackendSpringboot.service.ChatMessageService;
 import Hend.BackendSpringboot.service.IIncidentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.Map;
 @RequestMapping("/incident")
 public class IncidentRestController {
     IIncidentService incidentService;
+
+    private final ChatMessageService chatMessageService;
 
     // http://localhost:8089/csers/incident/add-incident
     @PostMapping("/add-incident")
@@ -89,6 +93,12 @@ public class IncidentRestController {
     public ResponseEntity<List<Object[]>> getIncidentsCountByType() {
         List<Object[]> incidentCounts = incidentService.countIncidentsByType();
         return ResponseEntity.ok(incidentCounts);
+    }
+
+
+    @GetMapping("/getAllMsg")
+    public List<ChatMessage> getAllMessages() {
+        return chatMessageService.getAllMessages();
     }
 
 }
